@@ -1,5 +1,10 @@
 package br.com.pintegrador.model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+import br.com.pintegrador.factory.ConnectionFactory;
+
 public class Veiculo {
 
 	private int id_veiculo;
@@ -45,8 +50,43 @@ public class Veiculo {
 	public void setAutonomia(double autonomia) {
 		this.autonomia = autonomia;
 	}
-	
-	
-	
+	public void save(Veiculo veiculo) {
+			
+			String sql = "INSERT INTO veiculo(ano, modelo, autonomia) VALUES (?, ?, ?)";
+			
+			Connection conn = null;
+			PreparedStatement pstm = null;
+			
+			try {
+				//CRIAR UMA CONEXÃO COM O BANCO DE DADOS
+				conn = ConnectionFactory.createConnectionToPostgresSQL();
+				
+				
+				//CRIAMOS UMA PREPAREDSTATEMENT, PARA EXECUTAR UMA QUERY
+				pstm = (PreparedStatement) conn.prepareStatement(sql);
+				//ADICIONAMOS OS VALORES ESPERADOS PELA QUERY
+				pstm.setString(1, veiculo.getAno());
+				pstm.setString(2, veiculo.getModelo());
+				pstm.setDouble(3, veiculo.getAutonomia());
+				
+				//EXECUTAR A QUERY
+				pstm.execute();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				//FECHAR AS CONEXÕES
+				try {
+					if(pstm!=null) {
+						pstm.close();
+					}
+					
+					if(conn!=null) {
+						conn.close();
+					}
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	
 }

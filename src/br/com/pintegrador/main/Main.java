@@ -32,7 +32,7 @@ public class Main {
 		Colaborador c1 = new Colaborador("Luan de Oliveira Dias", "123456789");
 		
 		//ATUALIZAR O VEICULO
-//		Veiculo v1 = new Veiculo("1998", "Corolla", 10.00);
+		Veiculo v1 = new Veiculo("1998", "Corolla", 10.00);
 		
 		//ATUALIZAR O CHAMADO
 //		Chamado ch1 = new Chamado("321321", 100, 100, new Date(1), 1 ,2);
