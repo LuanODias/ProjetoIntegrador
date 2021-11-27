@@ -18,27 +18,27 @@ public class Main {
 		VeiculoDAO veiculodao = new VeiculoDAO();
 		ChamadoDAO chamadodao = new ChamadoDAO();
 		
-		//CRIAÇÃO DOS NOVOS OBJETOS
-//		Colaborador colaborador = new Colaborador("teste", "123456789");
-//		Veiculo veiculo = new Veiculo("1970", "Chevette", 10.99);
-//		Chamado chamado = new Chamado("123123", 200, 300, new Date(0), 1, 1);
+		//CRIAï¿½ï¿½O DOS NOVOS OBJETOS
+	//	Colaborador colaborador = new Colaborador("teste", "123456789");
+ 	//	Veiculo veiculo = new Veiculo("1970", "Chevette", 10.99);
+		Chamado chamado = new Chamado("123123", 200, 300, new Date(0), 3, 2);
 		
 		//SALVANDO NO BANCO DE DADOS
-//		colaboradordao.save(colaborador);
-//		veiculodao.save(veiculo);
-//		chamadodao.save(chamado);
+	//	colaboradordao.save(colaborador);
+	//	veiculodao.save(veiculo);
+		chamadodao.save(chamado);
 		
 		//ATUALIZAR O COLABORADOR
-		Colaborador c1 = new Colaborador("Luan de Oliveira Dias", "123456789");
+		//Colaborador c1 = new Colaborador("Luan de Oliveira Dias", "123456789");
 		
 		//ATUALIZAR O VEICULO
-		Veiculo v1 = new Veiculo("1998", "Corolla", 10.00);
+		//Veiculo v1 = new Veiculo("1998", "Corolla", 10.00);
 		
 		//ATUALIZAR O CHAMADO
 //		Chamado ch1 = new Chamado("321321", 100, 100, new Date(1), 1 ,2);
 		
-		//NUMERO QUE ESTÁ NO BD.
-		c1.setId(1);
+		//NUMERO QUE ESTï¿½ NO BD.
+
 //		v1.setId(1);
 //		ch1.setId(1);
 		
@@ -50,8 +50,7 @@ public class Main {
 //		veiculodao.update(v1);
 //		chamadodao.update(ch1);
 		
-		
-		colaboradordao.delete(c1);
+
 //		veiculodao.delete(v1);
 //		chamadodao.delete(ch1);
 		
