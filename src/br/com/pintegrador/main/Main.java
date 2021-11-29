@@ -18,7 +18,7 @@ public class Main {
 		VeiculoDAO veiculodao = new VeiculoDAO();
 		ChamadoDAO chamadodao = new ChamadoDAO();
 		
-		//CRIAï¿½ï¿½O DOS NOVOS OBJETOS
+		//CRIAÇÃO DOS NOVOS OBJETOS
 	//	Colaborador colaborador = new Colaborador("teste", "123456789");
  	//	Veiculo veiculo = new Veiculo("1970", "Chevette", 10.99);
 		Chamado chamado = new Chamado("123123", 200, 300, new Date(0), 3, 2);
