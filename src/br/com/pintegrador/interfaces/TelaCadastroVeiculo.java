@@ -1,6 +1,5 @@
 package br.com.pintegrador.interfaces;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -14,7 +13,10 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
-import javax.swing.border.EmptyBorder;
+
+import br.com.pintegrador.model.Veiculo;
+import br.com.pintegrador.util.Utilitarios;
+import br.com.pintegrador.dao.*;
 
 public class TelaCadastroVeiculo extends JFrame {
 
@@ -22,6 +24,8 @@ public class TelaCadastroVeiculo extends JFrame {
 	private JTextField anoVeiculo;
 	private JTextField modeloVeiculo;
 	private JTextField autonomiaVeiculo;
+	Utilitarios util = new Utilitarios();
+	VeiculoDAO veiculoDAO = new VeiculoDAO();
 
 	/**
 	 * Launch the application.
@@ -43,6 +47,7 @@ public class TelaCadastroVeiculo extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaCadastroVeiculo() {
+		
 		setResizable(false);
 		setTitle("Cadastro Ve\u00EDculo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -93,27 +98,35 @@ public class TelaCadastroVeiculo extends JFrame {
 		sl_panel.putConstraint(SpringLayout.WEST, btnColaborador, 10, SpringLayout.WEST, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, btnColaborador, -10, SpringLayout.EAST, panel);
 		panel.add(btnColaborador);
+		btnColaborador.addActionListener(e->{util.telas("colaborador", this);});
 		
 		JButton btnVeiculo = new JButton("Veiculos");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnVeiculo, 8, SpringLayout.SOUTH, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.WEST, btnVeiculo, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnVeiculo, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnVeiculo);
+		btnVeiculo.addActionListener(e->{util.telas("veiculo", this);});
 		
 		JButton btnChamado = new JButton("Chamados");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnChamado, 10, SpringLayout.SOUTH, btnVeiculo);
 		sl_panel.putConstraint(SpringLayout.WEST, btnChamado, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnChamado, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnChamado);
+		btnChamado.addActionListener(e->{util.telas("chamado", this);});
 		
-		JButton btnCriar = new JButton("Adicionar");
-		sl_panel.putConstraint(SpringLayout.WEST, btnCriar, 0, SpringLayout.WEST, btnColaborador);
-		sl_panel.putConstraint(SpringLayout.SOUTH, btnCriar, -37, SpringLayout.SOUTH, panel);
-		sl_panel.putConstraint(SpringLayout.EAST, btnCriar, 0, SpringLayout.EAST, btnColaborador);
-		panel.add(btnCriar);
+		JButton btnSalvar = new JButton("Salvar");
+		sl_panel.putConstraint(SpringLayout.WEST, btnSalvar, 0, SpringLayout.WEST, btnColaborador);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnSalvar, -37, SpringLayout.SOUTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, btnSalvar, 0, SpringLayout.EAST, btnColaborador);
+		panel.add(btnSalvar);
+		btnSalvar.addActionListener(e->{
+			double autonomia = Double.parseDouble(autonomiaVeiculo.getText());
+			Veiculo veiculo = new Veiculo(anoVeiculo.getText(), modeloVeiculo.getText(), autonomia);
+			veiculoDAO.save(veiculo);
+		});
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		sl_panel.putConstraint(SpringLayout.NORTH, btnCancelar, 6, SpringLayout.SOUTH, btnCriar);
+		sl_panel.putConstraint(SpringLayout.NORTH, btnCancelar, 6, SpringLayout.SOUTH, btnSalvar);
 		sl_panel.putConstraint(SpringLayout.WEST, btnCancelar, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnCancelar, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnCancelar);

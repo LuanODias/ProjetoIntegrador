@@ -130,5 +130,37 @@ public void delete(Veiculo veiculo) {
 	}
 }
 
+public void Read(Veiculo veiculo) {
+	
+	String sql = "SELECT * FROM veiculo";
+	
+	Connection conn = null;
+	PreparedStatement pstm = null;
+	
+	try {
+		//CRIAR CONEXÃO COM O BANCO
+		conn = ConnectionFactory.createConnectionToPostgresSQL();
+		
+		//CRIAR A CLASSE PARA EXECUTAR A QUERY
+		pstm = conn.prepareStatement(sql);
+		
+		//EXECUTAR A QUERY
+		pstm.execute();
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		try{
+			if(pstm!=null) {
+				pstm.close();
+			}
+			if(conn!= null) {
+				conn.close();
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+
 
 }

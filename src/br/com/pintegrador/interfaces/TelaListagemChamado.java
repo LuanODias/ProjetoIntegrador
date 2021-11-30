@@ -1,6 +1,5 @@
 package br.com.pintegrador.interfaces;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -8,13 +7,14 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JList;
+
+import br.com.pintegrador.util.Utilitarios;
 
 public class TelaListagemChamado extends JFrame {
 
@@ -40,8 +40,10 @@ public class TelaListagemChamado extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaListagemChamado() {
+		Utilitarios util = new Utilitarios();
+		
 		setResizable(false);
-		setTitle("Listagem Chamado");
+		setTitle("Lista de Chamados");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 700);
 		
@@ -84,27 +86,30 @@ public class TelaListagemChamado extends JFrame {
 		sl_panel.putConstraint(SpringLayout.WEST, btnColaborador, 10, SpringLayout.WEST, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, btnColaborador, -10, SpringLayout.EAST, panel);
 		panel.add(btnColaborador);
+		btnColaborador.addActionListener(e->{util.telas("colaborador", this);});
 		
 		JButton btnVeiculo = new JButton("Veiculos");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnVeiculo, 8, SpringLayout.SOUTH, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.WEST, btnVeiculo, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnVeiculo, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnVeiculo);
+		btnVeiculo.addActionListener(e->{util.telas("veiculo", this);});
 		
 		JButton btnChamado = new JButton("Chamados");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnChamado, 10, SpringLayout.SOUTH, btnVeiculo);
 		sl_panel.putConstraint(SpringLayout.WEST, btnChamado, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnChamado, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnChamado);
+		btnChamado.addActionListener(e->{util.telas("chamado", this);});
 		
 		JButton btnCriar = new JButton("Adicionar");
 		sl_panel.putConstraint(SpringLayout.WEST, btnCriar, 0, SpringLayout.WEST, btnColaborador);
-		sl_panel.putConstraint(SpringLayout.SOUTH, btnCriar, -37, SpringLayout.SOUTH, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, btnCriar, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnCriar);
 		
 		JButton btnRemover = new JButton("Remover");
-		sl_panel.putConstraint(SpringLayout.NORTH, btnRemover, 6, SpringLayout.SOUTH, btnCriar);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnCriar, -37, SpringLayout.NORTH, btnRemover);
+		sl_panel.putConstraint(SpringLayout.NORTH, btnRemover, 608, SpringLayout.NORTH, panel);
 		sl_panel.putConstraint(SpringLayout.WEST, btnRemover, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnRemover, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnRemover);
@@ -112,6 +117,12 @@ public class TelaListagemChamado extends JFrame {
 		JPanel panel_1 = new JPanel();
 		springLayout.putConstraint(SpringLayout.NORTH, panel_1, 38, SpringLayout.NORTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, panel_1, 44, SpringLayout.EAST, panel);
+		
+		JButton btnEditar = new JButton("Editar");
+		sl_panel.putConstraint(SpringLayout.NORTH, btnEditar, 6, SpringLayout.SOUTH, btnCriar);
+		sl_panel.putConstraint(SpringLayout.WEST, btnEditar, 0, SpringLayout.WEST, btnColaborador);
+		sl_panel.putConstraint(SpringLayout.EAST, btnEditar, 0, SpringLayout.EAST, btnColaborador);
+		panel.add(btnEditar);
 		springLayout.putConstraint(SpringLayout.SOUTH, panel_1, -11, SpringLayout.SOUTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, panel_1, -31, SpringLayout.EAST, getContentPane());
 		getContentPane().add(panel_1);
@@ -119,5 +130,4 @@ public class TelaListagemChamado extends JFrame {
 		JList listChamado = new JList();
 		panel_1.add(listChamado);
 	}
-
 }

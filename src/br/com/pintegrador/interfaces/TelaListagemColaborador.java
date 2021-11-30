@@ -1,6 +1,5 @@
 package br.com.pintegrador.interfaces;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -8,13 +7,14 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JList;
+
+import br.com.pintegrador.util.Utilitarios;
 
 public class TelaListagemColaborador extends JFrame {
 
@@ -40,8 +40,10 @@ public class TelaListagemColaborador extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaListagemColaborador() {
+		Utilitarios util = new Utilitarios();
+		
 		setResizable(false);
-		setTitle("Listagem Colaborador");
+		setTitle("Lista de Colaboradores");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 700);
 		
@@ -84,18 +86,21 @@ public class TelaListagemColaborador extends JFrame {
 		sl_panel.putConstraint(SpringLayout.WEST, btnColaborador, 10, SpringLayout.WEST, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, btnColaborador, -10, SpringLayout.EAST, panel);
 		panel.add(btnColaborador);
+		btnColaborador.addActionListener(e->{util.telas("colaborador", this);});
 		
 		JButton btnVeiculo = new JButton("Veiculos");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnVeiculo, 8, SpringLayout.SOUTH, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.WEST, btnVeiculo, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnVeiculo, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnVeiculo);
+		btnVeiculo.addActionListener(e->{util.telas("veiculo", this);});
 		
 		JButton btnChamado = new JButton("Chamados");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnChamado, 10, SpringLayout.SOUTH, btnVeiculo);
 		sl_panel.putConstraint(SpringLayout.WEST, btnChamado, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnChamado, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnChamado);
+		btnChamado.addActionListener(e->{util.telas("chamado", this);});
 		
 		JButton btnCriar = new JButton("Adicionar");
 		sl_panel.putConstraint(SpringLayout.WEST, btnCriar, 0, SpringLayout.WEST, btnColaborador);
