@@ -1,7 +1,12 @@
 package br.com.pintegrador.util;
 import javax.swing.JFrame;
 
-import br.com.pintegrador.interfaces.*;
+import br.com.pintegrador.interfaces.TelaCadastroChamado;
+import br.com.pintegrador.interfaces.TelaCadastroColaborador;
+import br.com.pintegrador.interfaces.TelaCadastroVeiculo;
+import br.com.pintegrador.interfaces.TelaListagemChamado;
+import br.com.pintegrador.interfaces.TelaListagemColaborador;
+import br.com.pintegrador.interfaces.TelaListagemVeiculo;
 
 public class Utilitarios {
 
@@ -25,6 +30,16 @@ public class Utilitarios {
 		case "criarVeiculo": 
 				TelaCadastroVeiculo telaCriarVeiculo = new TelaCadastroVeiculo();
 				telaCriarVeiculo.setVisible(true);
+				menu.setVisible(false);
+				break;
+		case "criarChamado": 
+				TelaCadastroChamado telaCriarChamado = new TelaCadastroChamado();
+				telaCriarChamado.setVisible(true);
+				menu.setVisible(false);
+				break;
+		case "criarColaborador":
+				TelaCadastroColaborador telaCriarColaborador = new TelaCadastroColaborador();
+				telaCriarColaborador.setVisible(true);
 				menu.setVisible(false);
 				break;
 		}

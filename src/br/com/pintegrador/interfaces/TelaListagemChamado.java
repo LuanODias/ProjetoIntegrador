@@ -106,6 +106,7 @@ public class TelaListagemChamado extends JFrame {
 		sl_panel.putConstraint(SpringLayout.WEST, btnCriar, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnCriar, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnCriar);
+		btnCriar.addActionListener(e->{util.telas("criarChamado", this);});
 		
 		JButton btnRemover = new JButton("Remover");
 		sl_panel.putConstraint(SpringLayout.SOUTH, btnCriar, -37, SpringLayout.NORTH, btnRemover);

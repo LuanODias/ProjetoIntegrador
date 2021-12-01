@@ -112,7 +112,7 @@ public class TelaListagemVeiculo extends JFrame {
 		sl_panel.putConstraint(SpringLayout.SOUTH, btnCriar, -37, SpringLayout.SOUTH, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, btnCriar, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnCriar);
-		btnCriar.addActionListener(null);
+		btnCriar.addActionListener(e->{util.telas("criarVeiculo", this);});
 		
 		JButton btnRemover = new JButton("Remover");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnRemover, 6, SpringLayout.SOUTH, btnCriar);

@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+import br.com.pintegrador.dao.ChamadoDAO;
+import br.com.pintegrador.model.Chamado;
 import br.com.pintegrador.util.Utilitarios;
 
 public class TelaCadastroChamado extends JFrame {
@@ -25,6 +27,7 @@ public class TelaCadastroChamado extends JFrame {
 	private JTextField dataChamado;
 	private JTextField veiculoChamado;
 	private JTextField colaboradorChamado;
+	ChamadoDAO DAO = new ChamadoDAO();
 
 	/**
 	 * Launch the application.
@@ -81,21 +84,21 @@ public class TelaCadastroChamado extends JFrame {
 		SpringLayout sl_panel = new SpringLayout();
 		panel.setLayout(sl_panel);
 		
-		JLabel lblNewLabel = new JLabel("LISTAS");
-		sl_panel.putConstraint(SpringLayout.EAST, lblNewLabel, -79, SpringLayout.EAST, panel);
-		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 20));
-		panel.add(lblNewLabel);
+		JLabel labelLista = new JLabel("LISTAS");
+		sl_panel.putConstraint(SpringLayout.EAST, labelLista, -79, SpringLayout.EAST, panel);
+		labelLista.setFont(new Font("Arial", Font.BOLD, 20));
+		panel.add(labelLista);
 		
-		JLabel lblNewLabel_1 = new JLabel("Novo Chamado");
-		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 10, SpringLayout.NORTH, getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel_1, 6, SpringLayout.EAST, panel);
-		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 34));
-		getContentPane().add(lblNewLabel_1);
+		JLabel labelChamado = new JLabel("Novo Chamado");
+		springLayout.putConstraint(SpringLayout.NORTH, labelChamado, 10, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, labelChamado, 6, SpringLayout.EAST, panel);
+		labelChamado.setFont(new Font("Arial", Font.BOLD, 34));
+		getContentPane().add(labelChamado);
 		
 		JButton btnColaborador = new JButton("Colaboradores");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnColaborador, 40, SpringLayout.NORTH, panel);
 		sl_panel.putConstraint(SpringLayout.SOUTH, btnColaborador, -576, SpringLayout.SOUTH, panel);
-		sl_panel.putConstraint(SpringLayout.SOUTH, lblNewLabel, -6, SpringLayout.NORTH, btnColaborador);
+		sl_panel.putConstraint(SpringLayout.SOUTH, labelLista, -6, SpringLayout.NORTH, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.WEST, btnColaborador, 10, SpringLayout.WEST, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, btnColaborador, -10, SpringLayout.EAST, panel);
 		panel.add(btnColaborador);
@@ -116,36 +119,48 @@ public class TelaCadastroChamado extends JFrame {
 		panel.add(btnChamado);
 		btnChamado.addActionListener(e->{util.telas("chamado", this);});
 		
-		JButton btnCriar = new JButton("Adicionar");
-		sl_panel.putConstraint(SpringLayout.WEST, btnCriar, 0, SpringLayout.WEST, btnColaborador);
-		sl_panel.putConstraint(SpringLayout.SOUTH, btnCriar, -37, SpringLayout.SOUTH, panel);
-		sl_panel.putConstraint(SpringLayout.EAST, btnCriar, 0, SpringLayout.EAST, btnColaborador);
-		panel.add(btnCriar);
+		JButton btnCadastrar = new JButton("Cadastrar");
+		sl_panel.putConstraint(SpringLayout.WEST, btnCadastrar, 0, SpringLayout.WEST, btnColaborador);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnCadastrar, -37, SpringLayout.SOUTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, btnCadastrar, 0, SpringLayout.EAST, btnColaborador);
+		panel.add(btnCadastrar);
+		btnCadastrar.addActionListener(e->{
+			
+			int kmChamado = Integer.parseInt(kmchamado.getText());
+			int veiculochamado = Integer.parseInt(veiculoChamado.getText());
+			int colaboradorchamado = Integer.parseInt(colaboradorChamado.getText());
+			
+			
+			Chamado chamado = new Chamado(numChamado.getText(),kmChamado,dataChamado.getText(),veiculochamado,colaboradorchamado);
+			//chamado.calularPegadaCarbono(kmChamado, ?);
+			
+			DAO.save(chamado);
+		});
 		
-		JButton btnRemover = new JButton("Remover");
-		sl_panel.putConstraint(SpringLayout.NORTH, btnRemover, 6, SpringLayout.SOUTH, btnCriar);
-		sl_panel.putConstraint(SpringLayout.WEST, btnRemover, 0, SpringLayout.WEST, btnColaborador);
-		sl_panel.putConstraint(SpringLayout.EAST, btnRemover, 0, SpringLayout.EAST, btnColaborador);
-		panel.add(btnRemover);
+		JButton btnCancelar = new JButton("Cancelar");
+		sl_panel.putConstraint(SpringLayout.NORTH, btnCancelar, 6, SpringLayout.SOUTH, btnCadastrar);
+		sl_panel.putConstraint(SpringLayout.WEST, btnCancelar, 0, SpringLayout.WEST, btnColaborador);
+		sl_panel.putConstraint(SpringLayout.EAST, btnCancelar, 0, SpringLayout.EAST, btnColaborador);
+		panel.add(btnCancelar);
 		
-		JLabel lblNewLabel_2 = new JLabel("N\u00FAmero do chamado:");
-		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 16));
-		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel_2, 36, SpringLayout.SOUTH, lblNewLabel_1);
-		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel_2, 6, SpringLayout.EAST, panel);
-		getContentPane().add(lblNewLabel_2);
+		JLabel labelchamado = new JLabel("N\u00FAmero do chamado:");
+		labelChamado.setFont(new Font("Arial", Font.BOLD, 16));
+		springLayout.putConstraint(SpringLayout.NORTH, labelchamado, 36, SpringLayout.SOUTH, labelLista);
+		springLayout.putConstraint(SpringLayout.WEST, labelchamado, 6, SpringLayout.EAST, panel);
+		getContentPane().add(labelchamado);
 		
 		numChamado = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, numChamado, 55, SpringLayout.SOUTH, lblNewLabel_1);
+		springLayout.putConstraint(SpringLayout.NORTH, numChamado, 55, SpringLayout.SOUTH, labelLista);
 		springLayout.putConstraint(SpringLayout.WEST, numChamado, 6, SpringLayout.EAST, panel);
 		springLayout.putConstraint(SpringLayout.EAST, numChamado, 160, SpringLayout.EAST, panel);
 		getContentPane().add(numChamado);
 		numChamado.setColumns(10);
 		
-		JLabel lblNewLabel_2_1 = new JLabel("KM Rodado:");
-		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel_2_1, 16, SpringLayout.SOUTH, numChamado);
-		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel_2_1, 6, SpringLayout.EAST, panel);
-		lblNewLabel_2_1.setFont(new Font("Arial", Font.BOLD, 16));
-		getContentPane().add(lblNewLabel_2_1);
+		JLabel labelRodado = new JLabel("KM Rodado:");
+		springLayout.putConstraint(SpringLayout.NORTH, labelRodado, 16, SpringLayout.SOUTH, numChamado);
+		springLayout.putConstraint(SpringLayout.WEST, labelRodado, 6, SpringLayout.EAST, panel);
+		labelRodado.setFont(new Font("Arial", Font.BOLD, 16));
+		getContentPane().add(labelRodado);
 		
 		kmchamado = new JTextField();
 		springLayout.putConstraint(SpringLayout.NORTH, kmchamado, 35, SpringLayout.SOUTH, numChamado);
@@ -154,11 +169,11 @@ public class TelaCadastroChamado extends JFrame {
 		kmchamado.setColumns(10);
 		getContentPane().add(kmchamado);
 		
-		JLabel lblNewLabel_2_1_1 = new JLabel("Data do Chamado:");
-		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel_2_1_1, 15, SpringLayout.SOUTH, kmchamado);
-		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel_2_1_1, 6, SpringLayout.EAST, panel);
-		lblNewLabel_2_1_1.setFont(new Font("Arial", Font.BOLD, 16));
-		getContentPane().add(lblNewLabel_2_1_1);
+		JLabel labelData = new JLabel("Data do Chamado:");
+		springLayout.putConstraint(SpringLayout.NORTH, labelData, 15, SpringLayout.SOUTH, kmchamado);
+		springLayout.putConstraint(SpringLayout.WEST, labelData, 6, SpringLayout.EAST, panel);
+		labelData.setFont(new Font("Arial", Font.BOLD, 16));
+		getContentPane().add(labelData);
 		
 		dataChamado = new JTextField();
 		springLayout.putConstraint(SpringLayout.NORTH, dataChamado, 34, SpringLayout.SOUTH, kmchamado);
@@ -167,11 +182,11 @@ public class TelaCadastroChamado extends JFrame {
 		dataChamado.setColumns(10);
 		getContentPane().add(dataChamado);
 		
-		JLabel lblNewLabel_2_1_1_1 = new JLabel("Ve\u00EDculo:");
-		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel_2_1_1_1, 21, SpringLayout.SOUTH, dataChamado);
-		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel_2_1_1_1, 6, SpringLayout.EAST, panel);
-		lblNewLabel_2_1_1_1.setFont(new Font("Arial", Font.BOLD, 16));
-		getContentPane().add(lblNewLabel_2_1_1_1);
+		JLabel labelVeiculo = new JLabel("Ve\u00EDculo:");
+		springLayout.putConstraint(SpringLayout.NORTH, labelVeiculo, 21, SpringLayout.SOUTH, dataChamado);
+		springLayout.putConstraint(SpringLayout.WEST, labelVeiculo, 6, SpringLayout.EAST, panel);
+		labelVeiculo.setFont(new Font("Arial", Font.BOLD, 16));
+		getContentPane().add(labelVeiculo);
 		
 		veiculoChamado = new JTextField();
 		springLayout.putConstraint(SpringLayout.NORTH, veiculoChamado, 40, SpringLayout.SOUTH, dataChamado);
@@ -180,11 +195,11 @@ public class TelaCadastroChamado extends JFrame {
 		veiculoChamado.setColumns(10);
 		getContentPane().add(veiculoChamado);
 		
-		JLabel lblNewLabel_2_1_1_1_1 = new JLabel("Colaborador:");
-		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel_2_1_1_1_1, 18, SpringLayout.SOUTH, veiculoChamado);
-		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel_2_1_1_1_1, 6, SpringLayout.EAST, panel);
-		lblNewLabel_2_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 16));
-		getContentPane().add(lblNewLabel_2_1_1_1_1);
+		JLabel labelColaborador = new JLabel("Colaborador:");
+		springLayout.putConstraint(SpringLayout.NORTH, labelColaborador, 18, SpringLayout.SOUTH, veiculoChamado);
+		springLayout.putConstraint(SpringLayout.WEST, labelColaborador, 6, SpringLayout.EAST, panel);
+		labelColaborador.setFont(new Font("Arial", Font.BOLD, 16));
+		getContentPane().add(labelColaborador);
 		
 		colaboradorChamado = new JTextField();
 		springLayout.putConstraint(SpringLayout.NORTH, colaboradorChamado, 37, SpringLayout.SOUTH, veiculoChamado);

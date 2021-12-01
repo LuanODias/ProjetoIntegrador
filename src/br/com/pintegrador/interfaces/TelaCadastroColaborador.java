@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+import br.com.pintegrador.dao.ColaboradorDAO;
+import br.com.pintegrador.model.Colaborador;
 import br.com.pintegrador.util.Utilitarios;
 
 public class TelaCadastroColaborador extends JFrame {
@@ -21,6 +23,7 @@ public class TelaCadastroColaborador extends JFrame {
 	private JPanel contentPane;
 	private JTextField nomeColaborador;
 	private JTextField matriculaColaborador;
+	ColaboradorDAO colaboradorDAO = new ColaboradorDAO();
 
 	/**
 	 * Launch the application.
@@ -110,6 +113,10 @@ public class TelaCadastroColaborador extends JFrame {
 		sl_panel.putConstraint(SpringLayout.SOUTH, btnCadastrar, -37, SpringLayout.SOUTH, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, btnCadastrar, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnCadastrar);
+		btnCadastrar.addActionListener(e->{
+			Colaborador colaborador = new Colaborador(nomeColaborador.getText(),matriculaColaborador.getText());
+			colaboradorDAO.save(colaborador);
+		});
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnCancelar, 6, SpringLayout.SOUTH, btnCadastrar);

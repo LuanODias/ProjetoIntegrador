@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS chamado(
 	numero_chamado CHARACTER VARYING (9) NOT NULL,
 	km_rodado INTEGER NOT NULL,
 	CO2 DOUBLE PRECISION NOT NULL,
-	data_chamado DATE NOT NULL, 
+	data_chamado CHARACTER VARYING (8) NOT NULL, 
 	veiculo INTEGER REFERENCES veiculo (id_veiculo) NOT NULL,
 	colaborador INTEGER REFERENCES colaborador (id_colaborador) NOT NULL
 )

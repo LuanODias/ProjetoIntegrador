@@ -114,19 +114,19 @@ public class TelaCadastroVeiculo extends JFrame {
 		panel.add(btnChamado);
 		btnChamado.addActionListener(e->{util.telas("chamado", this);});
 		
-		JButton btnSalvar = new JButton("Salvar");
-		sl_panel.putConstraint(SpringLayout.WEST, btnSalvar, 0, SpringLayout.WEST, btnColaborador);
-		sl_panel.putConstraint(SpringLayout.SOUTH, btnSalvar, -37, SpringLayout.SOUTH, panel);
-		sl_panel.putConstraint(SpringLayout.EAST, btnSalvar, 0, SpringLayout.EAST, btnColaborador);
-		panel.add(btnSalvar);
-		btnSalvar.addActionListener(e->{
+		JButton btnCadastrar = new JButton("Cadastrar");
+		sl_panel.putConstraint(SpringLayout.WEST, btnCadastrar, 0, SpringLayout.WEST, btnColaborador);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnCadastrar, -37, SpringLayout.SOUTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, btnCadastrar, 0, SpringLayout.EAST, btnColaborador);
+		panel.add(btnCadastrar);
+		btnCadastrar.addActionListener(e->{
 			double autonomia = Double.parseDouble(autonomiaVeiculo.getText());
 			Veiculo veiculo = new Veiculo(anoVeiculo.getText(), modeloVeiculo.getText(), autonomia);
 			veiculoDAO.save(veiculo);
 		});
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		sl_panel.putConstraint(SpringLayout.NORTH, btnCancelar, 6, SpringLayout.SOUTH, btnSalvar);
+		sl_panel.putConstraint(SpringLayout.NORTH, btnCancelar, 6, SpringLayout.SOUTH, btnCadastrar);
 		sl_panel.putConstraint(SpringLayout.WEST, btnCancelar, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnCancelar, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnCancelar);

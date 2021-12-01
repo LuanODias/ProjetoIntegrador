@@ -20,7 +20,7 @@ public class ChamadoDAO {
 	
 	public void save(Chamado chamado) {
 		
-		String sql = "INSERT INTO chamado(numero_chamado, km_rodado, CO2, data_chamado, veiculo, colaborador) VALUES (?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO chamado(numero_chamado, km_rodado, data_chamado, veiculo, colaborador) VALUES (?, ?, ?, ?, ?)";
 		
 		Connection conn = null;
 		PreparedStatement pstm = null;
@@ -35,10 +35,9 @@ public class ChamadoDAO {
 			//ADICIONAMOS OS VALORES ESPERADOS PELA QUERY
 			pstm.setString(1, chamado.getNumero_chamado());
 			pstm.setInt(2, chamado.getKm_rodado());
-			pstm.setDouble(3, chamado.getCO2());
-			pstm.setDate(4, new Date(chamado.getData().getTime()));
-			pstm.setInt(5, chamado.getVeiculo());
-			pstm.setInt(6, chamado.getColaborador());
+			pstm.setString(3, chamado.getData());
+			pstm.setInt(4, chamado.getVeiculo());
+			pstm.setInt(5, chamado.getColaborador());
 			
 			//EXECUTAR A QUERY
 			pstm.execute();
@@ -77,10 +76,9 @@ public class ChamadoDAO {
 				//ADICIONAR OS VALORES PARA ATUALIZAR
 				pstm.setString(1, chamado.getNumero_chamado());
 				pstm.setInt(2, chamado.getKm_rodado());
-				pstm.setDouble(3, chamado.getCO2());
-				pstm.setDate(4, new Date(chamado.getData().getTime()));
-				pstm.setInt(5, chamado.getVeiculo());
-				pstm.setInt(6, chamado.getColaborador());
+				pstm.setString(3, chamado.getData());
+				pstm.setInt(4, chamado.getVeiculo());
+				pstm.setInt(5, chamado.getColaborador());
 				
 				//QUAL O ID DO REGISTRO QUE DESEJA ATUALIZAR?
 				pstm.setInt(7, chamado.getId());
