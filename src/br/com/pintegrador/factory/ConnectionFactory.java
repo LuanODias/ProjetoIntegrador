@@ -9,11 +9,11 @@ public class ConnectionFactory {
 	private static final String USERNAME = "postgres";
 	
 	//SENHA DO BANCO
-	private static final String PASSWORD = "13579";
+	private static final String PASSWORD = "Devc7w4@";
 	
 	//CAMINHO DO BANCO DE DADOS,PORTA E NOME DO BANCO
 	
-	private static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/pintegrador";
+	private static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/Projeto Integrador";
 	
 	//CONEXÃO COM O BANCO DE DADOS
 	public static Connection createConnectionToPostgresSQL() throws Exception {

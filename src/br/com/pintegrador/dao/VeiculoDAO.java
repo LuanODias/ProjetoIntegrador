@@ -2,6 +2,11 @@ package br.com.pintegrador.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.pintegrador.factory.ConnectionFactory;
 import br.com.pintegrador.model.Veiculo;
@@ -22,6 +27,7 @@ public class VeiculoDAO {
 		
 		Connection conn = null;
 		PreparedStatement pstm = null;
+		
 		
 		try {
 			//CRIAR UMA CONEXÃO COM O BANCO DE DADOS
@@ -130,22 +136,33 @@ public void delete(Veiculo veiculo) {
 	}
 }
 
-public void Read(Veiculo veiculo) {
-	
-	String sql = "SELECT * FROM veiculo";
+public static List<Veiculo> listar(Veiculo veiculo){
+	List<Veiculo> veiculos = new ArrayList<>();
+	String sql = "SELECT * FROM veiculo ORDER BY id_veiculo";
 	
 	Connection conn = null;
-	PreparedStatement pstm = null;
+	Statement pstm = null;
+	ResultSet resultSet = null;
 	
 	try {
 		//CRIAR CONEXÃO COM O BANCO
 		conn = ConnectionFactory.createConnectionToPostgresSQL();
 		
 		//CRIAR A CLASSE PARA EXECUTAR A QUERY
-		pstm = conn.prepareStatement(sql);
+		pstm = conn.createStatement();
+		resultSet = pstm.executeQuery(sql);
+
+		
+		while (resultSet.next()) {
+            veiculo.setId(resultSet.getInt("id"));
+            veiculo.setAno(resultSet.getString("Ano"));
+            veiculo.setModelo(resultSet.getString("Modelo"));
+            veiculo.setAutonomia(resultSet.getDouble("Autonomia"));
+
+            veiculos.add(veiculo);
+        }
 		
 		//EXECUTAR A QUERY
-		pstm.execute();
 	}catch (Exception e) {
 		e.printStackTrace();
 	}finally {
@@ -160,7 +177,6 @@ public void Read(Veiculo veiculo) {
 			e.printStackTrace();
 		}
 	}
-}
-
-
+		return veiculos;
+	}
 }

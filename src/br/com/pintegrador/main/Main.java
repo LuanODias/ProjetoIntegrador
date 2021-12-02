@@ -18,15 +18,15 @@ public class Main {
 		VeiculoDAO veiculodao = new VeiculoDAO();
 		ChamadoDAO chamadodao = new ChamadoDAO();
 		
-		//CRIAÇÃO DOS NOVOS OBJETOS
+		//CRIAï¿½ï¿½O DOS NOVOS OBJETOS
 	//	Colaborador colaborador = new Colaborador("teste", "123456789");
  	//	Veiculo veiculo = new Veiculo("1970", "Chevette", 10.99);
-		Chamado chamado = new Chamado("123123", 200, 300, new Date(0), 3, 2);
+	//	Chamado chamado = new Chamado("123123", 200, 300, new Date(0), 3, 2);
 		
 		//SALVANDO NO BANCO DE DADOS
 	//	colaboradordao.save(colaborador);
 	//	veiculodao.save(veiculo);
-		chamadodao.save(chamado);
+	//	chamadodao.save(chamado);
 		
 		//ATUALIZAR O COLABORADOR
 		//Colaborador c1 = new Colaborador("Luan de Oliveira Dias", "123456789");
