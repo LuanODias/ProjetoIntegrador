@@ -30,7 +30,7 @@ public class VeiculoDAO {
 		
 		
 		try {
-			//CRIAR UMA CONEXÃO COM O BANCO DE DADOS
+			//CRIAR UMA CONEXï¿½O COM O BANCO DE DADOS
 			conn = ConnectionFactory.createConnectionToPostgresSQL();
 			
 			
@@ -46,7 +46,7 @@ public class VeiculoDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			//FECHAR AS CONEXÕES
+			//FECHAR AS CONEXï¿½ES
 			try {
 				if(pstm!=null) {
 					pstm.close();
@@ -70,7 +70,7 @@ public void update(Veiculo veiculo) {
 		PreparedStatement pstm = null;
 		
 		try {
-			//CRIAR CONEXÃO COM O BANCO
+			//CRIAR CONEXï¿½O COM O BANCO
 			conn = ConnectionFactory.createConnectionToPostgresSQL();
 			
 			//CRIAR A CLASSE PARA EXECUTAR A QUERY
@@ -109,7 +109,7 @@ public void delete(Veiculo veiculo) {
 	PreparedStatement pstm = null;
 	
 	try {
-		//CRIAR CONEXÃO COM O BANCO
+		//CRIAR CONEXï¿½O COM O BANCO
 		conn = ConnectionFactory.createConnectionToPostgresSQL();
 		
 		//CRIAR A CLASSE PARA EXECUTAR A QUERY
@@ -135,7 +135,6 @@ public void delete(Veiculo veiculo) {
 		}
 	}
 }
-
 public static List<Veiculo> listar(Veiculo veiculo){
 	List<Veiculo> veiculos = new ArrayList<>();
 	String sql = "SELECT * FROM veiculo ORDER BY id_veiculo";
@@ -145,7 +144,7 @@ public static List<Veiculo> listar(Veiculo veiculo){
 	ResultSet resultSet = null;
 	
 	try {
-		//CRIAR CONEXÃO COM O BANCO
+		//CRIAR CONEXï¿½O COM O BANCO
 		conn = ConnectionFactory.createConnectionToPostgresSQL();
 		
 		//CRIAR A CLASSE PARA EXECUTAR A QUERY
@@ -155,9 +154,9 @@ public static List<Veiculo> listar(Veiculo veiculo){
 		
 		while (resultSet.next()) {
             veiculo.setId(resultSet.getInt("id"));
-            veiculo.setAno(resultSet.getString("Ano"));
-            veiculo.setModelo(resultSet.getString("Modelo"));
-            veiculo.setAutonomia(resultSet.getDouble("Autonomia"));
+            veiculo.setAno(resultSet.getString("ano"));
+            veiculo.setModelo(resultSet.getString("modelo"));
+            veiculo.setAutonomia(resultSet.getDouble("autonomia"));
 
             veiculos.add(veiculo);
         }
@@ -178,5 +177,7 @@ public static List<Veiculo> listar(Veiculo veiculo){
 		}
 	}
 		return veiculos;
-	}
+}
+
+
 }

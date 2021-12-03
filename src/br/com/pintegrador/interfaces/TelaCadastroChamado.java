@@ -3,6 +3,8 @@ package br.com.pintegrador.interfaces;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 import br.com.pintegrador.dao.ChamadoDAO;
+import br.com.pintegrador.dao.VeiculoDAO;
 import br.com.pintegrador.model.Chamado;
 import br.com.pintegrador.util.Utilitarios;
 
@@ -22,7 +25,6 @@ public class TelaCadastroChamado extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField numChamado;
-	private JTextField kmChamado;
 	private JTextField kmchamado;
 	private JTextField dataChamado;
 	private JTextField veiculoChamado;
@@ -129,11 +131,14 @@ public class TelaCadastroChamado extends JFrame {
 			int kmChamado = Integer.parseInt(kmchamado.getText());
 			int veiculochamado = Integer.parseInt(veiculoChamado.getText());
 			int colaboradorchamado = Integer.parseInt(colaboradorChamado.getText());
-			
-			
-			Chamado chamado = new Chamado(numChamado.getText(),kmChamado,dataChamado.getText(),veiculochamado,colaboradorchamado);
-			//chamado.calularPegadaCarbono(kmChamado, ?);
-			
+			String dataFormatada =  dataChamado.getText().substring(0, 2) + "/" +
+									dataChamado.getText().substring(2, 4) + "/" +
+									dataChamado.getText().substring(4, 8);
+						
+			Chamado chamado = new Chamado(numChamado.getText(), kmChamado, 0, dataFormatada, veiculochamado, colaboradorchamado);
+			double autonomia = DAO.getAutonomia(veiculochamado);
+			chamado.calularPegadaCarbono(kmChamado, autonomia);
+			System.out.println("AAAQQQQUIIIIIIII");
 			DAO.save(chamado);
 		});
 		

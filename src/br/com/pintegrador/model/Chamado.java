@@ -1,4 +1,6 @@
 package br.com.pintegrador.model;
+import java.util.Date;
+
 
 public class Chamado {
 	private int id_chamado;
@@ -8,15 +10,17 @@ public class Chamado {
 	private String data;
 	
 
+
 	private int veiculo;
 	private int colaborador;
 	
 	
 
-	public Chamado(String numero_chamado, int km_rodado, String data, int veiculo, int colaborador) {
+	public Chamado(String numero_chamado, int km_rodado, double co2, String data, int veiculo, int colaborador) {
 		super();
 		this.numero_chamado = numero_chamado;
 		this.km_rodado = km_rodado;
+		this.CO2 = co2;
 		this.data = data;
 		this.veiculo = veiculo;
 		this.colaborador = colaborador;
@@ -24,6 +28,14 @@ public class Chamado {
 
 	public int getId() {
 		return id_chamado;
+	}
+
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
 	}
 
 	public void setId(int id_chamado) {
@@ -48,13 +60,7 @@ public class Chamado {
 		this.id_chamado = id_chamado;
 	}
 
-	public String getData() {
-		return data;
-	}
 
-	public void setData(String data) {
-		this.data = data;
-	}
 
 	public int getKm_rodado() {
 		return km_rodado;
@@ -69,7 +75,7 @@ public class Chamado {
 	}
 
 	public void setCO2(double cO2) {
-		CO2 = cO2;
+		this.CO2 = cO2;
 	}
 
 
@@ -90,7 +96,7 @@ public class Chamado {
 	}	
 	
 	public void calularPegadaCarbono(int km_rodado, double autonomia){
-		this.CO2 = (km_rodado / autonomia) * 2.02575;
+		CO2 = (km_rodado / autonomia) * 2.02575;
 	}
 	
 }
