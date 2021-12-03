@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import br.com.pintegrador.factory.ConnectionFactory;
 import br.com.pintegrador.model.Veiculo;
@@ -135,49 +136,32 @@ public void delete(Veiculo veiculo) {
 		}
 	}
 }
-public static List<Veiculo> listar(Veiculo veiculo){
-	List<Veiculo> veiculos = new ArrayList<>();
-	String sql = "SELECT * FROM veiculo ORDER BY id_veiculo";
+
+public ResultSet listar() {
+	
 	
 	Connection conn = null;
-	Statement pstm = null;
-	ResultSet resultSet = null;
+	Statement st;
+	ResultSet rs = null;
 	
 	try {
-		//CRIAR CONEXï¿½O COM O BANCO
+		//CRIAR CONEXÃO COM O BANCO
 		conn = ConnectionFactory.createConnectionToPostgresSQL();
 		
-		//CRIAR A CLASSE PARA EXECUTAR A QUERY
-		pstm = conn.createStatement();
-		resultSet = pstm.executeQuery(sql);
-
+		st = conn.createStatement();
+		rs = st.executeQuery("SELECT * FROM veiculo"); 
 		
-		while (resultSet.next()) {
-            veiculo.setId(resultSet.getInt("id"));
-            veiculo.setAno(resultSet.getString("ano"));
-            veiculo.setModelo(resultSet.getString("modelo"));
-            veiculo.setAutonomia(resultSet.getDouble("autonomia"));
-
-            veiculos.add(veiculo);
-        }
-		
-		//EXECUTAR A QUERY
-	}catch (Exception e) {
+	}catch(Exception e) {
 		e.printStackTrace();
-	}finally {
-		try{
-			if(pstm!=null) {
-				pstm.close();
-			}
-			if(conn!= null) {
-				conn.close();
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
-		return veiculos;
+	return rs;
 }
 
 
+
 }
+
+
+
+
+

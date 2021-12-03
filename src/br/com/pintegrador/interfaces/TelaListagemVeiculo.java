@@ -3,27 +3,29 @@ package br.com.pintegrador.interfaces;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.sql.ResultSet;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.SpringLayout;
-
-import br.com.pintegrador.util.Utilitarios;
-import java.awt.GridLayout;
-import javax.swing.AbstractListModel;
 import javax.swing.JTable;
+import javax.swing.SpringLayout;
 import javax.swing.table.DefaultTableModel;
+
+import br.com.pintegrador.dao.VeiculoDAO;
+import br.com.pintegrador.util.Utilitarios;
 
 public class TelaListagemVeiculo extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
+	private JTable table_1;
+	VeiculoDAO veiculodao = new VeiculoDAO();
 
 	/**
 	 * Launch the application.
@@ -128,6 +130,24 @@ public class TelaListagemVeiculo extends JFrame {
 		getContentPane().add(panel_1);
 		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
 		
+		
+		ResultSet rs;
+		DefaultTableModel dtm = new DefaultTableModel();
+		table_1 = new JTable();
+		
+		table_1.setModel(dtm);
+		dtm.setColumnIdentifiers(new Object[]{"id_veiculo", "ano", "modelo", "autonomia"});
+		rs = veiculodao.listar();
+		try{
+			while(rs.next()) {
+				dtm.addRow(new Object[]{rs.getInt("id_veiculo"), rs.getString("ano"), rs.getString("modelo"), rs.getDouble("autonomia")});
+			}
+		}catch(Exception e) {
+			
+		}
+		panel_1.add(table_1);
+		
+	
 		
 		
 	}

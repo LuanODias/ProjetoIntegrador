@@ -46,7 +46,7 @@ public class ChamadoDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			//FECHAR AS CONEXï¿½ES
+			//FECHAR AS CONEXÕES
 			try {
 				if(pstm!=null) {
 					pstm.close();
@@ -69,7 +69,7 @@ public class ChamadoDAO {
 			PreparedStatement pstm = null;
 			
 			try {
-				//CRIAR CONEXï¿½O COM O BANCO
+				//CRIAR CONEXÃO COM O BANCO
 				conn = ConnectionFactory.createConnectionToPostgresSQL();
 				
 				//CRIAR A CLASSE PARA EXECUTAR A QUERY
@@ -112,7 +112,7 @@ public class ChamadoDAO {
 			PreparedStatement pstm = null;
 			
 			try {
-				//CRIAR CONEXï¿½O COM O BANCO
+				//CRIAR CONEXÃO COM O BANCO
 				conn = ConnectionFactory.createConnectionToPostgresSQL();
 				
 				//CRIAR A CLASSE PARA EXECUTAR A QUERY
@@ -138,6 +138,7 @@ public class ChamadoDAO {
 				}
 			}
 		}
+		
 		public double getAutonomia(int id) {
 			String sql = "SELECT autonomia FROM veiculo WHERE id_veiculo = ?";
 			
@@ -146,7 +147,7 @@ public class ChamadoDAO {
 			ResultSet resultSet = null;
 			double autonomia = -1;
 			try {
-				//CRIAR CONEXï¿½O COM O BANCO
+				//CRIAR CONEXÃO COM O BANCO
 				conn = ConnectionFactory.createConnectionToPostgresSQL();
 				
 				//CRIAR A CLASSE PARA EXECUTAR A QUERY
@@ -173,5 +174,44 @@ public class ChamadoDAO {
 				}
 			}
 			return autonomia;
+		}
+		
+		public double getQuantidade(int id) {
+			String sql = "SELECT * FROM chamado ORDER BY id_chamado";
+			
+			Connection conn = null;
+			Statement pstm = null;
+			ResultSet resultSet = null;
+			int linhas = 0;
+			
+			try {
+				//CRIAR CONEXÃO COM O BANCO
+				conn = ConnectionFactory.createConnectionToPostgresSQL();
+				
+				//CRIAR A CLASSE PARA EXECUTAR A QUERY
+				pstm = conn.prepareStatement(sql);
+				
+				//ID DELETADO
+				resultSet = pstm.executeQuery(sql);
+				while (resultSet.next()) {
+				
+					linhas += 1; 
+				}
+		
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				try{
+					if(pstm!=null) {
+						pstm.close();
+					}
+					if(conn!= null) {
+						conn.close();
+					}
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			return linhas;
 		}
 }

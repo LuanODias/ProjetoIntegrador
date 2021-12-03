@@ -122,6 +122,8 @@ public class TelaListagemColaborador extends JFrame {
 		springLayout.putConstraint(SpringLayout.EAST, panel_1, -31, SpringLayout.EAST, getContentPane());
 		getContentPane().add(panel_1);
 		
+		
+		
 		JList ListColaborador = new JList();
 		panel_1.add(ListColaborador);
 	}

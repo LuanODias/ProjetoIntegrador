@@ -20,6 +20,7 @@ import br.com.pintegrador.dao.ChamadoDAO;
 import br.com.pintegrador.dao.VeiculoDAO;
 import br.com.pintegrador.model.Chamado;
 import br.com.pintegrador.util.Utilitarios;
+import javax.swing.JFormattedTextField;
 
 public class TelaCadastroChamado extends JFrame {
 
@@ -138,7 +139,6 @@ public class TelaCadastroChamado extends JFrame {
 			Chamado chamado = new Chamado(numChamado.getText(), kmChamado, 0, dataFormatada, veiculochamado, colaboradorchamado);
 			double autonomia = DAO.getAutonomia(veiculochamado);
 			chamado.calularPegadaCarbono(kmChamado, autonomia);
-			System.out.println("AAAQQQQUIIIIIIII");
 			DAO.save(chamado);
 		});
 		
@@ -149,6 +149,7 @@ public class TelaCadastroChamado extends JFrame {
 		panel.add(btnCancelar);
 		
 		JLabel labelchamado = new JLabel("N\u00FAmero do chamado:");
+		labelchamado.setFont(new Font("Arial", Font.BOLD, 16));
 		labelChamado.setFont(new Font("Arial", Font.BOLD, 16));
 		springLayout.putConstraint(SpringLayout.NORTH, labelchamado, 36, SpringLayout.SOUTH, labelLista);
 		springLayout.putConstraint(SpringLayout.WEST, labelchamado, 6, SpringLayout.EAST, panel);
