@@ -2,6 +2,8 @@ package br.com.pintegrador.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import br.com.pintegrador.factory.ConnectionFactory;
 import br.com.pintegrador.model.Chamado;
@@ -55,7 +57,7 @@ public class ColaboradorDAO {
 		}
 	}
 	
-	public void update(Colaborador colaborador) {
+	public void update(int id, String nome, String matricula) {
 		
 		String sql = "UPDATE colaborador SET nome = ?, matricula = ? " + 
 		"WHERE id_colaborador = ?";
@@ -71,11 +73,11 @@ public class ColaboradorDAO {
 			pstm = conn.prepareStatement(sql);
 			
 			//ADICIONAR OS VALORES PARA ATUALIZAR
-			pstm.setString(1, colaborador.getNome());
-			pstm.setString(2, colaborador.getMatricula());
+			pstm.setString(1, nome);
+			pstm.setString(2, matricula);
 			
 			//QUAL O ID DO REGISTRO QUE DESEJA ATUALIZAR?
-			pstm.setInt(3, colaborador.getId());
+			pstm.setInt(3, id);
 			
 			//EXECUTAR A QUERY
 			pstm.execute();
@@ -128,5 +130,26 @@ public class ColaboradorDAO {
 			}
 		}
 	}
+	
+	public ResultSet listar() {
+		
+		
+		Connection conn = null;
+		Statement st;
+		ResultSet rs = null;
+		
+		try {
+			//CRIAR CONEXÃO COM O BANCO
+			conn = ConnectionFactory.createConnectionToPostgresSQL();
+			
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM colaborador ORDER BY id_colaborador"); 
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return rs;
+	}
+
 
 }

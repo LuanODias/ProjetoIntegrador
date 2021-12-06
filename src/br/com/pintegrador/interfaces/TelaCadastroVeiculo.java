@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
@@ -17,6 +18,8 @@ import javax.swing.SpringLayout;
 import br.com.pintegrador.model.Veiculo;
 import br.com.pintegrador.util.Utilitarios;
 import br.com.pintegrador.dao.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TelaCadastroVeiculo extends JFrame {
 
@@ -98,38 +101,34 @@ public class TelaCadastroVeiculo extends JFrame {
 		sl_panel.putConstraint(SpringLayout.WEST, btnColaborador, 10, SpringLayout.WEST, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, btnColaborador, -10, SpringLayout.EAST, panel);
 		panel.add(btnColaborador);
-		btnColaborador.addActionListener(e->{util.telas("colaborador", this);});
+		btnColaborador.addActionListener(e->{util.telas("colaborador", this, 0);});
 		
 		JButton btnVeiculo = new JButton("Veiculos");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnVeiculo, 8, SpringLayout.SOUTH, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.WEST, btnVeiculo, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnVeiculo, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnVeiculo);
-		btnVeiculo.addActionListener(e->{util.telas("veiculo", this);});
+		btnVeiculo.addActionListener(e->{util.telas("veiculo", this, 0);});
 		
 		JButton btnChamado = new JButton("Chamados");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnChamado, 10, SpringLayout.SOUTH, btnVeiculo);
 		sl_panel.putConstraint(SpringLayout.WEST, btnChamado, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnChamado, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnChamado);
-		btnChamado.addActionListener(e->{util.telas("chamado", this);});
+		btnChamado.addActionListener(e->{util.telas("chamado", this, 0);});
 		
 		JButton btnCadastrar = new JButton("Cadastrar");
 		sl_panel.putConstraint(SpringLayout.WEST, btnCadastrar, 0, SpringLayout.WEST, btnColaborador);
-		sl_panel.putConstraint(SpringLayout.SOUTH, btnCadastrar, -37, SpringLayout.SOUTH, panel);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnCadastrar, -10, SpringLayout.SOUTH, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, btnCadastrar, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnCadastrar);
 		btnCadastrar.addActionListener(e->{
 			double autonomia = Double.parseDouble(autonomiaVeiculo.getText());
 			Veiculo veiculo = new Veiculo(anoVeiculo.getText(), modeloVeiculo.getText(), autonomia);
 			veiculoDAO.save(veiculo);
+			JOptionPane.showMessageDialog(null, "Veiculo Cadastrado com sucesso");
 		});
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		sl_panel.putConstraint(SpringLayout.NORTH, btnCancelar, 6, SpringLayout.SOUTH, btnCadastrar);
-		sl_panel.putConstraint(SpringLayout.WEST, btnCancelar, 0, SpringLayout.WEST, btnColaborador);
-		sl_panel.putConstraint(SpringLayout.EAST, btnCancelar, 0, SpringLayout.EAST, btnColaborador);
-		panel.add(btnCancelar);
+	
 		
 		JLabel lblNewLabel_2 = new JLabel("Ano:");
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 16));

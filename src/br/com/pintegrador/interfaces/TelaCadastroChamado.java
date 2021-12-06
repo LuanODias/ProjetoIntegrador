@@ -30,7 +30,9 @@ public class TelaCadastroChamado extends JFrame {
 	private JTextField dataChamado;
 	private JTextField veiculoChamado;
 	private JTextField colaboradorChamado;
+	
 	ChamadoDAO DAO = new ChamadoDAO();
+	Utilitarios util = new Utilitarios();
 
 	/**
 	 * Launch the application.
@@ -105,7 +107,7 @@ public class TelaCadastroChamado extends JFrame {
 		sl_panel.putConstraint(SpringLayout.WEST, btnColaborador, 10, SpringLayout.WEST, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, btnColaborador, -10, SpringLayout.EAST, panel);
 		panel.add(btnColaborador);
-		btnColaborador.addActionListener(e->{util.telas("colaborador", this);});
+		btnColaborador.addActionListener(e->{util.telas("colaborador", this, 0);});
 		
 		
 		JButton btnVeiculo = new JButton("Veiculos");
@@ -113,18 +115,18 @@ public class TelaCadastroChamado extends JFrame {
 		sl_panel.putConstraint(SpringLayout.WEST, btnVeiculo, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnVeiculo, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnVeiculo);
-		btnVeiculo.addActionListener(e->{util.telas("veiculo", this);});
+		btnVeiculo.addActionListener(e->{util.telas("veiculo", this, 0);});
 		
 		JButton btnChamado = new JButton("Chamados");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnChamado, 10, SpringLayout.SOUTH, btnVeiculo);
 		sl_panel.putConstraint(SpringLayout.WEST, btnChamado, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnChamado, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnChamado);
-		btnChamado.addActionListener(e->{util.telas("chamado", this);});
+		btnChamado.addActionListener(e->{util.telas("chamado", this, 0);});
 		
 		JButton btnCadastrar = new JButton("Cadastrar");
 		sl_panel.putConstraint(SpringLayout.WEST, btnCadastrar, 0, SpringLayout.WEST, btnColaborador);
-		sl_panel.putConstraint(SpringLayout.SOUTH, btnCadastrar, -37, SpringLayout.SOUTH, panel);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnCadastrar, -10, SpringLayout.SOUTH, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, btnCadastrar, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnCadastrar);
 		btnCadastrar.addActionListener(e->{
@@ -135,18 +137,17 @@ public class TelaCadastroChamado extends JFrame {
 			String dataFormatada =  dataChamado.getText().substring(0, 2) + "/" +
 									dataChamado.getText().substring(2, 4) + "/" +
 									dataChamado.getText().substring(4, 8);
-						
-			Chamado chamado = new Chamado(numChamado.getText(), kmChamado, 0, dataFormatada, veiculochamado, colaboradorchamado);
-			double autonomia = DAO.getAutonomia(veiculochamado);
-			chamado.calularPegadaCarbono(kmChamado, autonomia);
-			DAO.save(chamado);
+			try {
+				double autonomia = DAO.getAutonomia(veiculochamado);
+				double co2 = util.calularPegadaCarbono(kmChamado, autonomia);
+				Chamado chamado = new Chamado(numChamado.getText(), kmChamado, co2, dataFormatada, veiculochamado, colaboradorchamado);
+				DAO.save(chamado);
+			}catch (Exception a) {
+				a.getStackTrace();
+			}
+			
 		});
 		
-		JButton btnCancelar = new JButton("Cancelar");
-		sl_panel.putConstraint(SpringLayout.NORTH, btnCancelar, 6, SpringLayout.SOUTH, btnCadastrar);
-		sl_panel.putConstraint(SpringLayout.WEST, btnCancelar, 0, SpringLayout.WEST, btnColaborador);
-		sl_panel.putConstraint(SpringLayout.EAST, btnCancelar, 0, SpringLayout.EAST, btnColaborador);
-		panel.add(btnCancelar);
 		
 		JLabel labelchamado = new JLabel("N\u00FAmero do chamado:");
 		labelchamado.setFont(new Font("Arial", Font.BOLD, 16));

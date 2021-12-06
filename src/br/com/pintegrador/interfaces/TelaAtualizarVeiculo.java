@@ -3,6 +3,7 @@ package br.com.pintegrador.interfaces;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.HeadlessException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+import br.com.pintegrador.dao.VeiculoDAO;
+import br.com.pintegrador.model.Veiculo;
 import br.com.pintegrador.util.Utilitarios;
 
 public class TelaAtualizarVeiculo extends JFrame {
@@ -22,6 +25,18 @@ public class TelaAtualizarVeiculo extends JFrame {
 	private JTextField modeloVeiculo;
 	private JTextField anoVeiculo;
 	private JTextField autonomiaVeiculo;
+	
+	private int id;
+	
+	VeiculoDAO veiculodao = new VeiculoDAO();
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	/**
 	 * Launch the application.
@@ -96,30 +111,34 @@ public class TelaAtualizarVeiculo extends JFrame {
 		sl_panel.putConstraint(SpringLayout.WEST, btnColaborador, 10, SpringLayout.WEST, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, btnColaborador, -10, SpringLayout.EAST, panel);
 		panel.add(btnColaborador);
-		btnColaborador.addActionListener(e->{util.telas("colaborador", this);});
+		btnColaborador.addActionListener(e->{util.telas("colaborador", this, 0);});
 		
 		JButton btnVeiculo = new JButton("Veiculos");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnVeiculo, 8, SpringLayout.SOUTH, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.WEST, btnVeiculo, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnVeiculo, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnVeiculo);
-		btnVeiculo.addActionListener(e->{util.telas("veiculo", this);});
+		btnVeiculo.addActionListener(e->{util.telas("veiculo", this, 0);});
 		
 		JButton btnChamado = new JButton("Chamados");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnChamado, 10, SpringLayout.SOUTH, btnVeiculo);
 		sl_panel.putConstraint(SpringLayout.WEST, btnChamado, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnChamado, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnChamado);
-		btnChamado.addActionListener(e->{util.telas("chamado", this);});
+		btnChamado.addActionListener(e->{util.telas("chamado", this, 0);});
 		
-		JButton btnCriar = new JButton("Adicionar");
-		sl_panel.putConstraint(SpringLayout.WEST, btnCriar, 0, SpringLayout.WEST, btnColaborador);
-		sl_panel.putConstraint(SpringLayout.SOUTH, btnCriar, -37, SpringLayout.SOUTH, panel);
-		sl_panel.putConstraint(SpringLayout.EAST, btnCriar, 0, SpringLayout.EAST, btnColaborador);
-		panel.add(btnCriar);
+		JButton btnAtualizar = new JButton("Atualizar");
+		sl_panel.putConstraint(SpringLayout.WEST, btnAtualizar, 0, SpringLayout.WEST, btnColaborador);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnAtualizar, -37, SpringLayout.SOUTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, btnAtualizar, 0, SpringLayout.EAST, btnColaborador);
+		panel.add(btnAtualizar);
+		btnAtualizar.addActionListener(e->{
+			double autonomia = Double.parseDouble(autonomiaVeiculo.getText());
+			veiculodao.update(id, anoVeiculo.getText(), modeloVeiculo.getText(), autonomia);
+		});
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		sl_panel.putConstraint(SpringLayout.NORTH, btnCancelar, 6, SpringLayout.SOUTH, btnCriar);
+		sl_panel.putConstraint(SpringLayout.NORTH, btnCancelar, 6, SpringLayout.SOUTH, btnAtualizar);
 		sl_panel.putConstraint(SpringLayout.WEST, btnCancelar, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnCancelar, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnCancelar);

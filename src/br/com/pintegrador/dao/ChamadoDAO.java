@@ -176,42 +176,24 @@ public class ChamadoDAO {
 			return autonomia;
 		}
 		
-		public double getQuantidade(int id) {
-			String sql = "SELECT * FROM chamado ORDER BY id_chamado";
+		public ResultSet listar() {
+			
 			
 			Connection conn = null;
-			Statement pstm = null;
-			ResultSet resultSet = null;
-			int linhas = 0;
+			Statement st;
+			ResultSet rs = null;
 			
 			try {
 				//CRIAR CONEXÃO COM O BANCO
 				conn = ConnectionFactory.createConnectionToPostgresSQL();
 				
-				//CRIAR A CLASSE PARA EXECUTAR A QUERY
-				pstm = conn.prepareStatement(sql);
+				st = conn.createStatement();
+				rs = st.executeQuery("SELECT * FROM chamado ORDER BY id_chamado"); 
 				
-				//ID DELETADO
-				resultSet = pstm.executeQuery(sql);
-				while (resultSet.next()) {
-				
-					linhas += 1; 
-				}
-		
-			}catch (Exception e) {
+			}catch(Exception e) {
 				e.printStackTrace();
-			}finally {
-				try{
-					if(pstm!=null) {
-						pstm.close();
-					}
-					if(conn!= null) {
-						conn.close();
-					}
-				}catch (Exception e) {
-					e.printStackTrace();
-				}
 			}
-			return linhas;
+			return rs;
 		}
+
 }

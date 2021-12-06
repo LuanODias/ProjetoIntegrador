@@ -3,6 +3,8 @@ package br.com.pintegrador.interfaces;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.sql.ResultSet;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,14 +13,24 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
+import javax.swing.table.DefaultTableModel;
 
+import br.com.pintegrador.dao.ColaboradorDAO;
 import br.com.pintegrador.util.Utilitarios;
+import javax.swing.JTable;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TelaListagemColaborador extends JFrame {
 
 	private JPanel contentPane;
+	
+	ResultSet rs;
+	ColaboradorDAO colaboradordao = new ColaboradorDAO();
+	private JTable tabela_colaboradores;
 
 	/**
 	 * Launch the application.
@@ -86,45 +98,92 @@ public class TelaListagemColaborador extends JFrame {
 		sl_panel.putConstraint(SpringLayout.WEST, btnColaborador, 10, SpringLayout.WEST, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, btnColaborador, -10, SpringLayout.EAST, panel);
 		panel.add(btnColaborador);
-		btnColaborador.addActionListener(e->{util.telas("colaborador", this);});
+		btnColaborador.addActionListener(e->{util.telas("colaborador", this, 0);});
 		
 		JButton btnVeiculo = new JButton("Veiculos");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnVeiculo, 8, SpringLayout.SOUTH, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.WEST, btnVeiculo, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnVeiculo, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnVeiculo);
-		btnVeiculo.addActionListener(e->{util.telas("veiculo", this);});
+		btnVeiculo.addActionListener(e->{util.telas("veiculo", this, 0);});
 		
 		JButton btnChamado = new JButton("Chamados");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnChamado, 10, SpringLayout.SOUTH, btnVeiculo);
 		sl_panel.putConstraint(SpringLayout.WEST, btnChamado, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnChamado, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnChamado);
-		btnChamado.addActionListener(e->{util.telas("chamado", this);});
+		btnChamado.addActionListener(e->{util.telas("chamado", this, 0);});
 		
 		JButton btnCriar = new JButton("Adicionar");
 		sl_panel.putConstraint(SpringLayout.WEST, btnCriar, 0, SpringLayout.WEST, btnColaborador);
-		sl_panel.putConstraint(SpringLayout.SOUTH, btnCriar, -37, SpringLayout.SOUTH, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, btnCriar, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnCriar);
-		btnCriar.addActionListener(e->{util.telas("criarColaborador", this);});
+		btnCriar.addActionListener(e->{util.telas("criarColaborador", this, 0);});
 		
 		JButton btnRemover = new JButton("Remover");
-		sl_panel.putConstraint(SpringLayout.NORTH, btnRemover, 6, SpringLayout.SOUTH, btnCriar);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnCriar, -35, SpringLayout.NORTH, btnRemover);
+		sl_panel.putConstraint(SpringLayout.NORTH, btnRemover, 608, SpringLayout.NORTH, panel);
 		sl_panel.putConstraint(SpringLayout.WEST, btnRemover, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnRemover, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnRemover);
 		
-		JPanel panel_1 = new JPanel();
-		springLayout.putConstraint(SpringLayout.NORTH, panel_1, 38, SpringLayout.NORTH, getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, panel_1, 44, SpringLayout.EAST, panel);
-		springLayout.putConstraint(SpringLayout.SOUTH, panel_1, -11, SpringLayout.SOUTH, getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, panel_1, -31, SpringLayout.EAST, getContentPane());
-		getContentPane().add(panel_1);
+		JButton btnEditar = new JButton("Editar");
+		sl_panel.putConstraint(SpringLayout.NORTH, btnEditar, 6, SpringLayout.SOUTH, btnCriar);
+		sl_panel.putConstraint(SpringLayout.WEST, btnEditar, 0, SpringLayout.WEST, btnColaborador);
+		sl_panel.putConstraint(SpringLayout.EAST, btnEditar, 0, SpringLayout.EAST, btnColaborador);
+		panel.add(btnEditar);
+		btnEditar.addActionListener(e->{
+			int id = (int) tabela_colaboradores.getValueAt(tabela_colaboradores.getSelectedRow(), 0);
+			util.telas("editarColaborador", this, id);
+			});
+		
+		JPanel panel_2 = new JPanel();
+		springLayout.putConstraint(SpringLayout.NORTH, panel_2, 40, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, panel_2, 41, SpringLayout.EAST, panel);
+		springLayout.putConstraint(SpringLayout.SOUTH, panel_2, -23, SpringLayout.SOUTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, panel_2, -33, SpringLayout.EAST, getContentPane());
+		getContentPane().add(panel_2);
+		panel_2.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JLabel lblid = new JLabel("Id_Colaborador");
+		springLayout.putConstraint(SpringLayout.WEST, lblid, 87, SpringLayout.EAST, panel);
+		springLayout.putConstraint(SpringLayout.SOUTH, lblid, -6, SpringLayout.NORTH, panel_2);
+		lblid.setFont(new Font("Tahoma", Font.BOLD, 13));
+		getContentPane().add(lblid);
+		
+		JLabel lblnome = new JLabel("Nome");
+		springLayout.putConstraint(SpringLayout.WEST, lblnome, 118, SpringLayout.EAST, lblid);
+		springLayout.putConstraint(SpringLayout.SOUTH, lblnome, -6, SpringLayout.NORTH, panel_2);
+		lblnome.setFont(new Font("Tahoma", Font.BOLD, 13));
+		getContentPane().add(lblnome);
+		
+		JLabel lblMatricula = new JLabel("Matricula");
+		springLayout.putConstraint(SpringLayout.NORTH, lblMatricula, 0, SpringLayout.NORTH, lblid);
+		springLayout.putConstraint(SpringLayout.EAST, lblMatricula, -105, SpringLayout.EAST, getContentPane());
+		lblMatricula.setFont(new Font("Tahoma", Font.BOLD, 13));
+		getContentPane().add(lblMatricula);
 		
 		
 		
-		JList ListColaborador = new JList();
-		panel_1.add(ListColaborador);
+		
+		DefaultTableModel dtm = new DefaultTableModel();
+		tabela_colaboradores = new JTable();
+		tabela_colaboradores.setModel(dtm);
+		
+		dtm.setColumnIdentifiers(new Object[]{"id_colaborador", "nome", "matricula"});
+		rs = colaboradordao.listar();
+		try{
+			while(rs.next()) {
+				dtm.addRow(new Object[]{rs.getInt("id_colaborador"), rs.getString("nome"), rs.getString("matricula")});
+			}
+		}catch(Exception e) {
+			
+		}
+		
+		
+		panel_2.add(tabela_colaboradores);
+		
+		
+		
 	}
 }

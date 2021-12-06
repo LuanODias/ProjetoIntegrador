@@ -95,8 +95,8 @@ public class Chamado {
 		this.colaborador = colaborador;
 	}	
 	
-	public void calularPegadaCarbono(int km_rodado, double autonomia){
-		CO2 = (km_rodado / autonomia) * 2.02575;
-	}
+	
+	
+	
 	
 }

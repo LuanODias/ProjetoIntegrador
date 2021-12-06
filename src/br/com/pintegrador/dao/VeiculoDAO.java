@@ -62,7 +62,7 @@ public class VeiculoDAO {
 		}
 	}
 	
-public void update(Veiculo veiculo) {
+public void update(int id, String ano, String modelo, Double autonomia) {
 		
 		String sql = "UPDATE veiculo SET ano = ?, modelo = ?, autonomia = ? " + 
 		"WHERE id_veiculo = ?";
@@ -78,12 +78,12 @@ public void update(Veiculo veiculo) {
 			pstm = conn.prepareStatement(sql);
 			
 			//ADICIONAR OS VALORES PARA ATUALIZAR
-			pstm.setString(1, veiculo.getAno());
-			pstm.setString(2, veiculo.getModelo());
-			pstm.setDouble(3, veiculo.getAutonomia());
+			pstm.setString(1, ano);
+			pstm.setString(2, modelo);
+			pstm.setDouble(3, autonomia);
 			
 			//QUAL O ID DO REGISTRO QUE DESEJA ATUALIZAR?
-			pstm.setInt(4, veiculo.getId());
+			pstm.setInt(4, id);
 			
 			//EXECUTAR A QUERY
 			pstm.execute();
@@ -149,7 +149,7 @@ public ResultSet listar() {
 		conn = ConnectionFactory.createConnectionToPostgresSQL();
 		
 		st = conn.createStatement();
-		rs = st.executeQuery("SELECT * FROM veiculo"); 
+		rs = st.executeQuery("SELECT * FROM veiculo ORDER BY id_veiculo"); 
 		
 	}catch(Exception e) {
 		e.printStackTrace();

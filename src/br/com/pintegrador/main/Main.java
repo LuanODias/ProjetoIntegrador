@@ -1,13 +1,9 @@
 package br.com.pintegrador.main;
 
-import java.sql.Date;
-
 import br.com.pintegrador.dao.ChamadoDAO;
 import br.com.pintegrador.dao.ColaboradorDAO;
 import br.com.pintegrador.dao.VeiculoDAO;
 import br.com.pintegrador.model.Chamado;
-import br.com.pintegrador.model.Colaborador;
-import br.com.pintegrador.model.Veiculo;
 
 public class Main {
 
@@ -21,12 +17,12 @@ public class Main {
 		//CRIA��O DOS NOVOS OBJETOS
 	//	Colaborador colaborador = new Colaborador("teste", "123456789");
  	//	Veiculo veiculo = new Veiculo("1970", "Chevette", 10.99);
-	//	Chamado chamado = new Chamado("123123", 200, 300, new Date(0), 3, 2);
+		Chamado chamado = new Chamado("123123", 200, 300, "01012000", 3, 1);
 		
 		//SALVANDO NO BANCO DE DADOS
 	//	colaboradordao.save(colaborador);
 	//	veiculodao.save(veiculo);
-	//	chamadodao.save(chamado);
+		chamadodao.save(chamado);
 		
 		//ATUALIZAR O COLABORADOR
 		//Colaborador c1 = new Colaborador("Luan de Oliveira Dias", "123456789");
@@ -53,6 +49,17 @@ public class Main {
 
 //		veiculodao.delete(v1);
 //		chamadodao.delete(ch1);
+		
+		
+		
+		String dataFormatada =  dataChamado.getText().substring(0, 2) + "/" +
+								dataChamado.getText().substring(2, 4) + "/" +
+								dataChamado.getText().substring(4, 8);
+					
+		Chamado chamado = new Chamado("1231123", 40,dataFormatada, veiculochamado, colaboradorchamado);
+		double autonomia = DAO.getAutonomia(veiculochamado);
+		chamado.calularPegadaCarbono(kmChamado, autonomia);
+		DAO.save(chamado);
 		
 		
 		
