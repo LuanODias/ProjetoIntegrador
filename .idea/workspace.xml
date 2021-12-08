@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3a253d71-9a54-4315-8208-79fd71d2899a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/bin/br/com/pintegrador/dao/GUIDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/br/com/pintegrador/dao/MeuJFrame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/br/com/pintegrador/dao/PanelFrame.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/br/com/pintegrador/dao/ChamadoDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/br/com/pintegrador/dao/ChamadoDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/br/com/pintegrador/dao/VeiculoDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/br/com/pintegrador/dao/VeiculoDAO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/br/com/pintegrador/factory/ConnectionFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/br/com/pintegrador/factory/ConnectionFactory.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/pintegrador/dao/GUIDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/pintegrador/panels/GUIDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/pintegrador/dao/MeuJFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/pintegrador/panels/MeuJFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/pintegrador/dao/PanelFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/pintegrador/panels/PanelFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/br/com/pintegrador/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/br/com/pintegrador/main/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/br/com/pintegrador/model/Chamado.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/br/com/pintegrador/model/Chamado.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

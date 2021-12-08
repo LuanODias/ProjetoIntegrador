@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
@@ -114,8 +115,14 @@ public class TelaCadastroColaborador extends JFrame {
 		sl_panel.putConstraint(SpringLayout.EAST, btnCadastrar, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnCadastrar);
 		btnCadastrar.addActionListener(e->{
-			Colaborador colaborador = new Colaborador(nomeColaborador.getText(),matriculaColaborador.getText());
-			colaboradorDAO.save(colaborador);
+			try {
+				Colaborador colaborador = new Colaborador(nomeColaborador.getText(),matriculaColaborador.getText());
+				colaboradorDAO.save(colaborador);
+				JOptionPane.showMessageDialog(null, "Colaborador cadastrado com sucesso!");
+			} catch (Exception e2) {
+				JOptionPane.showMessageDialog(null, "Houve algum problema, por favor tente novamente!");
+			}
+			
 		});
 		
 		

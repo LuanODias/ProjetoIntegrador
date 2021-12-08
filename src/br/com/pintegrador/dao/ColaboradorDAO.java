@@ -96,7 +96,7 @@ public class ColaboradorDAO {
 			}
 		}
 	}
-	public void delete(Colaborador colaborador) {
+	public void delete(int id) {
 		
 		String sql = "DELETE FROM  colaborador WHERE id_colaborador = ?";
 		
@@ -111,7 +111,7 @@ public class ColaboradorDAO {
 			pstm = conn.prepareStatement(sql);
 			
 			//ID DELETADO
-			pstm.setInt(1, colaborador.getId());
+			pstm.setInt(1, id);
 			
 			//EXECUTAR A QUERY
 			pstm.execute();

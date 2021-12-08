@@ -15,14 +15,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.SpringLayout;
 import javax.swing.table.DefaultTableModel;
 
 import br.com.pintegrador.dao.VeiculoDAO;
 import br.com.pintegrador.util.Utilitarios;
-import javax.swing.ListSelectionModel;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class TelaListagemVeiculo extends JFrame {
 
@@ -31,6 +29,8 @@ public class TelaListagemVeiculo extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private JTable tabela_veiculos;
+	
+	
 	
 
 	/**
@@ -122,11 +122,24 @@ public class TelaListagemVeiculo extends JFrame {
 		btnCriar.addActionListener(e->{util.telas("criarVeiculo", this, 0);});
 		
 		JButton btnRemover = new JButton("Remover");
+		btnRemover.setEnabled(true);
 		sl_panel.putConstraint(SpringLayout.SOUTH, btnCriar, -36, SpringLayout.NORTH, btnRemover);
 		sl_panel.putConstraint(SpringLayout.NORTH, btnRemover, 608, SpringLayout.NORTH, panel);
 		sl_panel.putConstraint(SpringLayout.WEST, btnRemover, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnRemover, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnRemover);
+		btnRemover.addActionListener(e ->{
+			
+			try {
+				int id = (int) tabela_veiculos.getValueAt(tabela_veiculos.getSelectedRow(), 0);
+				veiculodao.delete(id);
+			} catch (Exception e2) {
+				JOptionPane.showMessageDialog(null,"É necessário selecionar um veiculo para remove-lo!");
+			}finally {
+				util.telas("veiculo", this, 0);
+			}
+			
+		});
 		
 		JPanel panel_1 = new JPanel();
 		springLayout.putConstraint(SpringLayout.NORTH, panel_1, 38, SpringLayout.NORTH, getContentPane());
@@ -134,6 +147,7 @@ public class TelaListagemVeiculo extends JFrame {
 		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JButton btnEditar = new JButton("Editar");
+		btnEditar.setEnabled(true);
 		sl_panel.putConstraint(SpringLayout.WEST, btnEditar, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.SOUTH, btnEditar, -6, SpringLayout.NORTH, btnRemover);
 		sl_panel.putConstraint(SpringLayout.EAST, btnEditar, 0, SpringLayout.EAST, btnColaborador);
@@ -141,10 +155,13 @@ public class TelaListagemVeiculo extends JFrame {
 		springLayout.putConstraint(SpringLayout.SOUTH, panel_1, -11, SpringLayout.SOUTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, panel_1, -31, SpringLayout.EAST, getContentPane());
 		getContentPane().add(panel_1);
-		
 		btnEditar.addActionListener(e->{
-			int id = (int) tabela_veiculos.getValueAt(tabela_veiculos.getSelectedRow(), 0);
-			util.telas("editarVeiculo", this, id);
+			try {
+				int id = (int) tabela_veiculos.getValueAt(tabela_veiculos.getSelectedRow(), 0);
+				util.telas("editarVeiculo", this, id);
+			} catch (Exception e2) {
+				JOptionPane.showMessageDialog(null, "Selecione um Veiculo para ser editado!");
+			}	
 		});
 		
 		

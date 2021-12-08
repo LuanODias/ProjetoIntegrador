@@ -3,7 +3,6 @@ package br.com.pintegrador.interfaces;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.HeadlessException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,12 +10,12 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 import br.com.pintegrador.dao.VeiculoDAO;
-import br.com.pintegrador.model.Veiculo;
 import br.com.pintegrador.util.Utilitarios;
 
 public class TelaAtualizarVeiculo extends JFrame {
@@ -129,19 +128,19 @@ public class TelaAtualizarVeiculo extends JFrame {
 		
 		JButton btnAtualizar = new JButton("Atualizar");
 		sl_panel.putConstraint(SpringLayout.WEST, btnAtualizar, 0, SpringLayout.WEST, btnColaborador);
-		sl_panel.putConstraint(SpringLayout.SOUTH, btnAtualizar, -37, SpringLayout.SOUTH, panel);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnAtualizar, -10, SpringLayout.SOUTH, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, btnAtualizar, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnAtualizar);
 		btnAtualizar.addActionListener(e->{
-			double autonomia = Double.parseDouble(autonomiaVeiculo.getText());
-			veiculodao.update(id, anoVeiculo.getText(), modeloVeiculo.getText(), autonomia);
+			try {
+				double autonomia = Double.parseDouble(autonomiaVeiculo.getText());
+				veiculodao.update(id, anoVeiculo.getText(), modeloVeiculo.getText(), autonomia);
+				JOptionPane.showMessageDialog(null, "Veiculo atualizado com sucesso!");
+			} catch (Exception e2) {
+				JOptionPane.showMessageDialog(null, "Houve algum problema, por favor tente novamente!");
+			}
+			
 		});
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		sl_panel.putConstraint(SpringLayout.NORTH, btnCancelar, 6, SpringLayout.SOUTH, btnAtualizar);
-		sl_panel.putConstraint(SpringLayout.WEST, btnCancelar, 0, SpringLayout.WEST, btnColaborador);
-		sl_panel.putConstraint(SpringLayout.EAST, btnCancelar, 0, SpringLayout.EAST, btnColaborador);
-		panel.add(btnCancelar);
 		
 		JLabel lblNewLabel_2 = new JLabel("Ano:");
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 16));

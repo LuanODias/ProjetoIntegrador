@@ -1,11 +1,13 @@
 package br.com.pintegrador.util;
 import javax.swing.JFrame;
 
+import br.com.pintegrador.interfaces.TelaAtualizarChamado;
 import br.com.pintegrador.interfaces.TelaAtualizarColaborador;
 import br.com.pintegrador.interfaces.TelaAtualizarVeiculo;
 import br.com.pintegrador.interfaces.TelaCadastroChamado;
 import br.com.pintegrador.interfaces.TelaCadastroColaborador;
 import br.com.pintegrador.interfaces.TelaCadastroVeiculo;
+import br.com.pintegrador.interfaces.TelaListagem;
 import br.com.pintegrador.interfaces.TelaListagemChamado;
 import br.com.pintegrador.interfaces.TelaListagemColaborador;
 import br.com.pintegrador.interfaces.TelaListagemVeiculo;
@@ -56,6 +58,17 @@ public class Utilitarios {
 				atualizarcolaborador.setVisible(true);
 				menu.setVisible(false);
 				break;
+		case "editarChamado":
+			TelaAtualizarChamado atualizarchamado = new TelaAtualizarChamado();
+			atualizarchamado.setId(id);
+			atualizarchamado.setVisible(true);
+			menu.setVisible(false);
+			break;
+		case "principal":
+			TelaListagem principal = new TelaListagem();
+			principal.setVisible(true);
+			menu.setVisible(false);
+			break;
 		}
 		
 	}

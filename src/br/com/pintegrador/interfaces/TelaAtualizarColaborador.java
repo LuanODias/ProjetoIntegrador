@@ -3,7 +3,6 @@ package br.com.pintegrador.interfaces;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.HeadlessException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
@@ -122,18 +122,18 @@ public class TelaAtualizarColaborador extends JFrame {
 		
 		JButton btnCadastrar = new JButton("Atualizar");
 		sl_panel.putConstraint(SpringLayout.WEST, btnCadastrar, 0, SpringLayout.WEST, btnColaborador);
-		sl_panel.putConstraint(SpringLayout.SOUTH, btnCadastrar, -37, SpringLayout.SOUTH, panel);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnCadastrar, -10, SpringLayout.SOUTH, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, btnCadastrar, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnCadastrar);
 		btnCadastrar.addActionListener(e->{
-			colaboradordao.update(id, nomeColaborador.getText(), matriculaColaborador.getText());
+			try {
+				colaboradordao.update(id, nomeColaborador.getText(), matriculaColaborador.getText());
+				JOptionPane.showMessageDialog(null, "Colaborador atualizado com sucesso");
+			} catch (Exception e2) {
+				JOptionPane.showMessageDialog(null, "Houve algum problema, tente novamente!");
+			}
+			
 		});
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		sl_panel.putConstraint(SpringLayout.NORTH, btnCancelar, 6, SpringLayout.SOUTH, btnCadastrar);
-		sl_panel.putConstraint(SpringLayout.WEST, btnCancelar, 0, SpringLayout.WEST, btnColaborador);
-		sl_panel.putConstraint(SpringLayout.EAST, btnCancelar, 0, SpringLayout.EAST, btnColaborador);
-		panel.add(btnCancelar);
 		
 		JLabel lblNewLabel_1 = new JLabel("Atualizar Colaborador");
 		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 10, SpringLayout.NORTH, getContentPane());

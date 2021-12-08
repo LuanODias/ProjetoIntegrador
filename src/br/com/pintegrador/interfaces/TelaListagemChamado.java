@@ -8,17 +8,17 @@ import java.sql.ResultSet;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.SpringLayout;
 import javax.swing.table.DefaultTableModel;
 
 import br.com.pintegrador.dao.ChamadoDAO;
 import br.com.pintegrador.util.Utilitarios;
-import javax.swing.JTable;
 
 public class TelaListagemChamado extends JFrame {
 
@@ -122,12 +122,30 @@ public class TelaListagemChamado extends JFrame {
 		sl_panel.putConstraint(SpringLayout.WEST, btnRemover, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnRemover, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnRemover);
+		btnRemover.addActionListener(e->{
+			try {
+				int id = (int) tabela_chamado.getValueAt(tabela_chamado.getSelectedRow(), 0);
+				chamadodao.delete(id);
+			} catch (Exception e2) {
+				JOptionPane.showMessageDialog(null,"É necessário selecionar um chamado para remove-lo!");
+			}finally {
+				util.telas("chamado", this, 0);
+			}
+		});
 		
 		JButton btnEditar = new JButton("Editar");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnEditar, 6, SpringLayout.SOUTH, btnCriar);
 		sl_panel.putConstraint(SpringLayout.WEST, btnEditar, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnEditar, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnEditar);
+		btnEditar.addActionListener(e->{
+			try {
+				int id = (int) tabela_chamado.getValueAt(tabela_chamado.getSelectedRow(), 0);
+				util.telas("editarChamado", this, id);
+			} catch (Exception e2) {
+				JOptionPane.showMessageDialog(null, "Selecione um Chamado para ser editado!");
+			}	
+		});
 		
 		JPanel panel_1 = new JPanel();
 		springLayout.putConstraint(SpringLayout.NORTH, panel_1, 47, SpringLayout.NORTH, getContentPane());
@@ -191,7 +209,7 @@ public class TelaListagemChamado extends JFrame {
 		rs = chamadodao.listar();
 		try{
 			while(rs.next()) {
-				dtm.addRow(new Object[]{rs.getInt("id_chamado"), rs.getString("numero_chamado"), rs.getInt("km_rodado"), rs.getDouble("co2"), rs.getString("data_chamado"), rs.getInt("veiculo"), rs.getInt("colaborador")});
+				dtm.addRow(new Object[]{rs.getInt("id_chamado"), rs.getString("numero_chamado"), rs.getInt("km_rodado"), rs.getString("co2"), rs.getString("data_chamado"), rs.getInt("veiculo"), rs.getInt("colaborador")});
 			}
 		}catch(Exception e) {
 			

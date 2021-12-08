@@ -15,11 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+import br.com.pintegrador.dao.VeiculoDAO;
 import br.com.pintegrador.model.Veiculo;
 import br.com.pintegrador.util.Utilitarios;
-import br.com.pintegrador.dao.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class TelaCadastroVeiculo extends JFrame {
 
@@ -123,10 +121,15 @@ public class TelaCadastroVeiculo extends JFrame {
 		sl_panel.putConstraint(SpringLayout.EAST, btnCadastrar, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnCadastrar);
 		btnCadastrar.addActionListener(e->{
-			double autonomia = Double.parseDouble(autonomiaVeiculo.getText());
-			Veiculo veiculo = new Veiculo(anoVeiculo.getText(), modeloVeiculo.getText(), autonomia);
-			veiculoDAO.save(veiculo);
-			JOptionPane.showMessageDialog(null, "Veiculo Cadastrado com sucesso");
+			try {
+				double autonomia = Double.parseDouble(autonomiaVeiculo.getText());
+				Veiculo veiculo = new Veiculo(anoVeiculo.getText(), modeloVeiculo.getText(), autonomia);
+				veiculoDAO.save(veiculo);
+				JOptionPane.showMessageDialog(null, "Veiculo Cadastrado com sucesso");
+			} catch (Exception e2) {
+				JOptionPane.showMessageDialog(null, "Houve algum problema, tente novamente!");
+			}
+			
 		});
 	
 		

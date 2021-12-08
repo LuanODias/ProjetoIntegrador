@@ -3,8 +3,7 @@ package br.com.pintegrador.interfaces;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.text.DecimalFormat;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,15 +11,13 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 import br.com.pintegrador.dao.ChamadoDAO;
-import br.com.pintegrador.dao.VeiculoDAO;
-import br.com.pintegrador.model.Chamado;
 import br.com.pintegrador.util.Utilitarios;
-import javax.swing.JFormattedTextField;
 
 public class TelaCadastroChamado extends JFrame {
 
@@ -31,7 +28,7 @@ public class TelaCadastroChamado extends JFrame {
 	private JTextField veiculoChamado;
 	private JTextField colaboradorChamado;
 	
-	ChamadoDAO DAO = new ChamadoDAO();
+	ChamadoDAO chamadodao= new ChamadoDAO();
 	Utilitarios util = new Utilitarios();
 
 	/**
@@ -132,16 +129,27 @@ public class TelaCadastroChamado extends JFrame {
 		btnCadastrar.addActionListener(e->{
 			
 			int kmChamado = Integer.parseInt(kmchamado.getText());
-			int veiculochamado = Integer.parseInt(veiculoChamado.getText());
+			double veiculochamado = Integer.parseInt(veiculoChamado.getText());
+			double autonomia = 0;
+			try {
+				autonomia = chamadodao.getAutonomia(veiculochamado);
+				JOptionPane.showMessageDialog(null, "Chamado cadastrado com sucesso!");
+			} catch (Exception e1) {
+				JOptionPane.showMessageDialog(null, "Houve algum problema, por favor, tente novamente!");
+				e1.printStackTrace();
+			}
 			int colaboradorchamado = Integer.parseInt(colaboradorChamado.getText());
 			String dataFormatada =  dataChamado.getText().substring(0, 2) + "/" +
 									dataChamado.getText().substring(2, 4) + "/" +
 									dataChamado.getText().substring(4, 8);
+			String numero_chamado = numChamado.getText();
 			try {
-				double autonomia = DAO.getAutonomia(veiculochamado);
-				double co2 = util.calularPegadaCarbono(kmChamado, autonomia);
-				Chamado chamado = new Chamado(numChamado.getText(), kmChamado, co2, dataFormatada, veiculochamado, colaboradorchamado);
-				DAO.save(chamado);
+				double consumogasolina = kmChamado / autonomia;
+				double CO2 = consumogasolina * 0.73 * 0.75 * 3.7;
+				DecimalFormat df = new DecimalFormat("#.00");
+				String co2 = df.format(CO2);
+				chamadodao.save(numero_chamado, kmChamado, co2, dataFormatada, veiculochamado, 
+						colaboradorchamado);
 			}catch (Exception a) {
 				a.getStackTrace();
 			}

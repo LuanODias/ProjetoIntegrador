@@ -1,10 +1,8 @@
 package br.com.pintegrador.interfaces;
 
-import br.com.pintegrador.util.Utilitarios;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,9 +10,13 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
+
+import br.com.pintegrador.dao.ChamadoDAO;
+import br.com.pintegrador.util.Utilitarios;
 
 public class TelaAtualizarChamado extends JFrame {
 
@@ -24,6 +26,17 @@ public class TelaAtualizarChamado extends JFrame {
 	private JTextField dataChamado;
 	private JTextField veiculoChamado;
 	private JTextField colaboradorChamado;
+	ChamadoDAO chamadodao = new ChamadoDAO();
+	
+	private int id;
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	/**
 	 * Launch the application.
@@ -114,17 +127,23 @@ public class TelaAtualizarChamado extends JFrame {
 		panel.add(btnChamado);
 		btnChamado.addActionListener(e->{util.telas("chamado", this, 0);});
 		
-		JButton btnCriar = new JButton("Adicionar");
-		sl_panel.putConstraint(SpringLayout.WEST, btnCriar, 0, SpringLayout.WEST, btnColaborador);
-		sl_panel.putConstraint(SpringLayout.SOUTH, btnCriar, -37, SpringLayout.SOUTH, panel);
-		sl_panel.putConstraint(SpringLayout.EAST, btnCriar, 0, SpringLayout.EAST, btnColaborador);
-		panel.add(btnCriar);
-		
-		JButton btnRemover = new JButton("Remover");
-		sl_panel.putConstraint(SpringLayout.NORTH, btnRemover, 6, SpringLayout.SOUTH, btnCriar);
-		sl_panel.putConstraint(SpringLayout.WEST, btnRemover, 0, SpringLayout.WEST, btnColaborador);
-		sl_panel.putConstraint(SpringLayout.EAST, btnRemover, 0, SpringLayout.EAST, btnColaborador);
-		panel.add(btnRemover);
+		JButton btnAtualizar = new JButton("Atualizar");
+		sl_panel.putConstraint(SpringLayout.WEST, btnAtualizar, 0, SpringLayout.WEST, btnColaborador);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnAtualizar, -10, SpringLayout.SOUTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, btnAtualizar, 0, SpringLayout.EAST, btnColaborador);
+		panel.add(btnAtualizar);
+		btnAtualizar.addActionListener(e->{
+			try {
+				int km = Integer.parseInt(kmchamado.getText());
+				int veiculo = Integer.parseInt(veiculoChamado.getText());
+				int colaborador = Integer.parseInt(colaboradorChamado.getText());
+				chamadodao.update(id, numChamado.getText(), km, dataChamado.getText(), veiculo, colaborador);
+				JOptionPane.showMessageDialog(null, "Chamado atualizado com sucesso!");
+			} catch (Exception e2) {
+				JOptionPane.showMessageDialog(null, "Houve algum problema, tente novamente!");
+			}
+			
+		});
 		
 		JLabel lblNewLabel_2 = new JLabel("N\u00FAmero do chamado:");
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 16));

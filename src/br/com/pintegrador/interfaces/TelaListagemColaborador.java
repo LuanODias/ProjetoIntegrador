@@ -9,20 +9,17 @@ import java.sql.ResultSet;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.SpringLayout;
 import javax.swing.table.DefaultTableModel;
 
 import br.com.pintegrador.dao.ColaboradorDAO;
 import br.com.pintegrador.util.Utilitarios;
-import javax.swing.JTable;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class TelaListagemColaborador extends JFrame {
 
@@ -126,6 +123,18 @@ public class TelaListagemColaborador extends JFrame {
 		sl_panel.putConstraint(SpringLayout.WEST, btnRemover, 0, SpringLayout.WEST, btnColaborador);
 		sl_panel.putConstraint(SpringLayout.EAST, btnRemover, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnRemover);
+		btnRemover.addActionListener(e ->{
+					
+					try {
+						int id = (int) tabela_colaboradores.getValueAt(tabela_colaboradores.getSelectedRow(), 0);
+						colaboradordao.delete(id);
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(null,"É necessário selecionar um colaborador para remove-lo!");
+					}finally {
+						util.telas("colaborador", this, 0);
+					}
+					
+				});
 		
 		JButton btnEditar = new JButton("Editar");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnEditar, 6, SpringLayout.SOUTH, btnCriar);
@@ -133,8 +142,14 @@ public class TelaListagemColaborador extends JFrame {
 		sl_panel.putConstraint(SpringLayout.EAST, btnEditar, 0, SpringLayout.EAST, btnColaborador);
 		panel.add(btnEditar);
 		btnEditar.addActionListener(e->{
-			int id = (int) tabela_colaboradores.getValueAt(tabela_colaboradores.getSelectedRow(), 0);
-			util.telas("editarColaborador", this, id);
+			try {
+				int id = (int) tabela_colaboradores.getValueAt(tabela_colaboradores.getSelectedRow(), 0);
+				util.telas("editarColaborador", this, id);
+			}catch (Exception o) {
+				o.getStackTrace();
+				JOptionPane.showMessageDialog(null, "Selecione um Colaborador para ser editado!");
+			}
+			
 			});
 		
 		JPanel panel_2 = new JPanel();

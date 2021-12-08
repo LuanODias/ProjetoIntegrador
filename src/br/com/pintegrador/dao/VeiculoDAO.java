@@ -102,7 +102,7 @@ public void update(int id, String ano, String modelo, Double autonomia) {
 			}
 		}
 	}
-public void delete(Veiculo veiculo) {
+public void delete(int id) {
 	
 	String sql = "DELETE FROM  veiculo WHERE id_veiculo = ?";
 	
@@ -117,7 +117,7 @@ public void delete(Veiculo veiculo) {
 		pstm = conn.prepareStatement(sql);
 		
 		//ID DELETADO
-		pstm.setInt(1, veiculo.getId());
+		pstm.setInt(1, id);
 		
 		//EXECUTAR A QUERY
 		pstm.execute();
